@@ -1,6 +1,8 @@
 # InsForge Analytics
 
 A full-stack real-time analytics dashboard built on [InsForge](https://insforge.app). It tracks user events, computes hourly metrics, and generates AI-powered insights built with claude code — all streamed live to the browser.
+<img width="1883" height="861" alt="Screenshot 2026-03-01 212108" src="https://github.com/user-attachments/assets/b811ccd5-8c44-4418-9391-dbeb27038a73" />
+
 
 ```
 insforge-sample/
