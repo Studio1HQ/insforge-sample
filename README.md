@@ -1,79 +1,156 @@
-# InsForge Analytics
+<div align="center">
 
-A full-stack real-time analytics dashboard built on [InsForge](https://insforge.app). It tracks user events, computes hourly metrics, and generates AI-powered insights built with claude code — all streamed live to the browser.
-<img width="1883" height="861" alt="Screenshot 2026-03-01 212108" src="https://github.com/user-attachments/assets/b811ccd5-8c44-4418-9391-dbeb27038a73" />
+<img src="https://raw.githubusercontent.com/Studio1HQ/Studio1HQ/main/assets/banners/insforge-sample.webp" alt="Real-Time Analytics Dashboard with InsForge: Track events, compute hourly metrics and stream AI insights" width="100%" />
 
+<br />
+<br />
 
-```
-insforge-sample/
-├── main.py                  # FastAPI entry point
-├── config.py                # Environment configuration
-├── client.py                # InsForge API client (DB + AI)
-├── requirements.txt         # Python dependencies
-├── Dockerfile               # Backend container image
-├── routers/
-│   ├── events.py            # Event CRUD
-│   ├── metrics.py           # Aggregated metrics & hourly stats
-│   ├── insights.py          # AI insight generation (SSE)
-│   └── simulate.py          # Fake event generator
-└── frontend/
-    ├── Dockerfile           # Frontend container image
-    ├── next.config.mjs
-    ├── app/
-    │   ├── layout.tsx
-    │   └── page.tsx         # Main dashboard (polling every 5s)
-    ├── components/
-    │   ├── MetricsSummary.tsx
-    │   ├── EventVolumeChart.tsx
-    │   ├── EventBreakdownChart.tsx
-    │   ├── LiveEventFeed.tsx
-    │   └── AIInsightsPanel.tsx
-    └── lib/
-        └── api.ts           # Typed fetch helpers + SSE streaming
-```
+# Real-Time Analytics Dashboard with InsForge
 
----
+### Track events, compute hourly metrics and stream AI insights
 
-## How it works
+A FastAPI and Next.js analytics dashboard on InsForge. It stores user events in InsForge Postgres, computes hourly stats, and streams Claude-generated insights through the InsForge AI gateway.
 
-```
-Browser (Next.js)
-  │  polls every 5 s
-  ▼
-FastAPI backend
-  │  reads / writes via REST
-  ▼
-InsForge (Postgres + AI gateway)
-  ├── events table          — raw event log
-  ├── event_hourly_stats    — pre-computed hourly buckets
-  └── ai_insights           — saved Claude responses
-```
+<br />
 
-The frontend polls the FastAPI backend every 5 seconds to keep metrics and charts fresh. When the user requests an AI insight, the backend fetches event context, calls the InsForge AI gateway (Claude Sonnet 4.5), and streams the response back token-by-token via Server-Sent Events.
+[![Built by Studio1](https://img.shields.io/badge/Built_by_Studio1-f97316?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTYwIiBmaWxsPSJub25lIj48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTAgMzVDMCAxNi42ODA3IDE0LjA3NDQgMS42NDg0NCAzMiAwLjEyNjk1M1YxNDFINTEuMDUyM0M1Mi40MzA4IDEzNy4zNDQgNTQuNzQ0NiAxMzMuNjg5IDU3Ljk5MzggMTMwLjAzM0M2MS4xNDQ2IDEyNi41MDggNjQuNjg5MiAxMjMuNDQgNjguNjI3NyAxMjAuODI5QzcyLjU2NjIgMTE4LjM0OSA3Ni4zNTY5IDExNi43ODIgODAgMTE2LjEyOVY4Ni43NTQ0Qzc1LjQ3MDggODcuOTI5MiA3MS4zODQ2IDg5LjY5MTkgNjcuNzQxNSA5Mi4wNDE1QzY0IDk0LjUyMjUgNjAuNzUwOCA5Ny40NiA1Ny45OTM4IDEwMC44NTRDNTYuNTM0NSAxMDIuNzIgNTUuMjU0NSAxMDQuNjU5IDU0LjE1MzkgMTA2LjY3MVYwSDEyNUMxNDQuMzMgMCAxNjAgMTUuNjY5OSAxNjAgMzVWMTI1QzE2MCAxNDQuMzMgMTQ0LjMzIDE2MCAxMjUgMTYwSDEyNFYxOEgxMDQuOTQ4QzEwMy41NjkgMjEuNjgxNiAxMDEuMjU1IDI1LjM2MjggOTguMDA2MiAyOS4wNDQ0Qzk0Ljg1NTQgMzIuNTk0MiA5MS4zMTA4IDM1LjY4NDEgODcuMzcyMyAzOC4zMTRDODMuNDMzOCA0MC44MTIgNzkuNjQzMSA0Mi4zODk2IDc2IDQzLjA0NzRWNzIuNjMwNEM4MC41MjkyIDcxLjQ0NzMgODQuNjE1NCA2OS42NzI0IDg4LjI1ODUgNjcuMzA1N0M5MiA2NC44MDc2IDk1LjI0OTIgNjEuODQ5MSA5OC4wMDYyIDU4LjQzMDdDOTkuNDY1NSA1Ni41NTEzIDEwMC43NDUgNTQuNTk4NiAxMDEuODQ2IDUyLjU3MjNWMTYwSDM1QzE1LjY3IDE2MCAwIDE0NC4zMyAwIDEyNVYzNVoiIGZpbGw9IiNmZmZmZmYiLz48L3N2Zz4K)](https://studio1hq.com)
+[![Built with InsForge](https://img.shields.io/badge/Built_with_InsForge-141414?style=for-the-badge)](https://insforge.dev)
 
----
+[InsForge docs](https://docs.insforge.dev) &nbsp;·&nbsp; [InsForge](https://insforge.dev) &nbsp;·&nbsp; [More examples](https://github.com/Studio1HQ) &nbsp;·&nbsp; [studio1hq.com](https://studio1hq.com)
+
+</div>
+
+<br />
+
+## Overview
+
+InsForge Analytics is a full-stack, real-time analytics dashboard built on [InsForge](https://insforge.dev). A FastAPI backend tracks user events, computes hourly metrics and generates AI insights. A Next.js dashboard polls the backend every 5 seconds and streams insights live.
+
+InsForge is used as Postgres over REST for the data and as the AI gateway for Claude Sonnet 4.5. The AI insights feature was built with Claude Code.
+
+<p align="center"><img src="https://github.com/user-attachments/assets/b811ccd5-8c44-4418-9391-dbeb27038a73" alt="InsForge Analytics dashboard" width="100%" /></p>
+
+## Features
+
+- **Event tracking**: Create, list, fetch and delete events through a REST API.
+- **Summary metrics**: Totals, unique users and sessions, breakdown by event name and top 10 pages.
+- **Hourly stats**: Pre-computed hourly buckets in `event_hourly_stats`, upsert-safe so re-running is idempotent.
+- **Streamed AI insights**: The backend sends event context to Claude Sonnet 4.5 via the InsForge AI gateway and streams tokens to the browser over Server-Sent Events.
+- **Saved insights**: Responses can be persisted to `ai_insights` after the stream ends.
+- **Data simulator**: Generate fake events across a number of days with one call or one button.
+- **Live dashboard**: Metric cards, an event volume area chart, an event type pie chart, a live feed of the 20 latest events and an AI insights panel.
 
 ## Tech stack
 
-| Layer | Technology |
-|---|---|
-| Backend | Python 3.11, FastAPI, httpx |
-| Frontend | Next.js 14, React 18, TypeScript, Tailwind CSS, Recharts |
-| Database | InsForge (Postgres via REST) |
-| AI | Claude Sonnet 4.5 via InsForge AI gateway (SSE) |
-| Containerisation | Docker (multi-stage for frontend) |
+| Layer | Tool |
+| --- | --- |
+| Backend | Python 3.11, [FastAPI](https://fastapi.tiangolo.com), httpx |
+| Frontend | [Next.js](https://nextjs.org/) 14, React 18, TypeScript, [Tailwind CSS](https://tailwindcss.com/), [Recharts](https://recharts.org/) |
+| Database | [InsForge](https://insforge.dev) (Postgres via REST) |
+| AI | Claude Sonnet 4.5 through the InsForge AI gateway (SSE) |
+| Packaging | Docker (multi-stage for the frontend) |
+| Deployment | [Zeabur](https://zeabur.com) (two services), or Docker |
 
----
+## Getting started
 
-## Database schema
+### Prerequisites
 
-### `events`
-Stores every tracked user action.
+- Python 3.11 or later
+- Node.js 20 or later
+- An InsForge project with the three tables from [Database schema](#database-schema) created
+
+### Installation
+
+```bash
+git clone https://github.com/Studio1HQ/insforge-sample.git
+cd insforge-sample
+pip install -r requirements.txt
+cd frontend && npm install
+```
+
+### Environment variables
+
+Backend, in a `.env` file at the project root:
+
+| Variable | Required | Description |
+| --- | --- | --- |
+| `INSFORGE_BASE_URL` | Yes | Base URL of your InsForge project, for example `https://<your-project>.us-east.insforge.app`. |
+| `INSFORGE_ANON_KEY` | Yes | Anonymous JWT from your InsForge project settings. |
+
+Frontend, in `frontend/.env.local`:
+
+| Variable | Required | Description |
+| --- | --- | --- |
+| `NEXT_PUBLIC_API_URL` | Yes | Public URL of the FastAPI backend, for example `http://localhost:8000`. Baked in at build time. |
+
+`NEXT_PUBLIC_*` values are embedded into the JavaScript bundle during `npm run build`, so set the value before the build, not just at runtime.
+
+### Run
+
+Backend, from the project root. The API is at `http://localhost:8000` with interactive docs at `/docs`:
+
+```bash
+uvicorn main:app --reload
+```
+
+Frontend, in a second terminal. The dashboard is at `http://localhost:3000`:
+
+```bash
+cd frontend
+npm run dev
+```
+
+Seed some data: open the dashboard, click **Simulate Events** to create 100 fake events, then **Compute Hourly Stats** to fill the charts. Or use the API:
+
+```bash
+curl -X POST http://localhost:8000/simulate/events \
+  -H "Content-Type: application/json" \
+  -d '{"count": 200, "days_back": 14}'
+
+curl -X POST http://localhost:8000/metrics/hourly/compute
+```
+
+## How it works
+
+```text
+Browser (Next.js)
+  |  polls every 5 s
+  v
+FastAPI backend
+  |  reads / writes via REST
+  v
+InsForge (Postgres + AI gateway)
+  |- events            raw event log
+  |- event_hourly_stats  pre-computed hourly buckets
+  '- ai_insights       saved Claude responses
+```
+
+When you request an insight, the backend fetches event context, calls the InsForge AI gateway and streams the response back token by token.
+
+```text
+insforge-sample/
+├── main.py            # FastAPI entry point
+├── config.py          # Environment configuration
+├── client.py          # InsForge API client (DB + AI)
+├── routers/
+│   ├── events.py      # Event CRUD
+│   ├── metrics.py     # Aggregated metrics and hourly stats
+│   ├── insights.py    # AI insight generation (SSE)
+│   └── simulate.py    # Fake event generator
+└── frontend/
+    ├── app/page.tsx   # Main dashboard (polls every 5 s)
+    ├── components/    # MetricsSummary, EventVolumeChart, EventBreakdownChart, LiveEventFeed, AIInsightsPanel
+    └── lib/api.ts     # Typed fetch helpers and SSE streaming
+```
+
+### Database schema
+
+`events` stores every tracked user action.
 
 | Column | Type | Notes |
-|---|---|---|
+| --- | --- | --- |
 | `id` | uuid | Primary key, auto-generated |
-| `event_name` | text | e.g. `page_view`, `click`, `purchase` |
+| `event_name` | text | For example `page_view`, `click`, `purchase` |
 | `user_id` | text | Opaque user identifier |
 | `session_id` | text | Opaque session identifier |
 | `page` | text | URL path where the event occurred |
@@ -81,54 +158,49 @@ Stores every tracked user action.
 | `properties` | jsonb | Event-specific payload |
 | `created_at` | timestamptz | Defaults to `now()` |
 
-### `event_hourly_stats`
-Pre-computed event counts bucketed by hour. Populated by `POST /metrics/hourly/compute`.
+`event_hourly_stats` holds event counts per hour, populated by `POST /metrics/hourly/compute`. It has a unique constraint on `(event_name, bucket_start)`.
 
 | Column | Type | Notes |
-|---|---|---|
+| --- | --- | --- |
 | `id` | uuid | Primary key |
 | `event_name` | text | |
 | `bucket_start` | timestamptz | Truncated to the hour |
 | `count` | integer | Events in this bucket |
 
-Unique constraint on `(event_name, bucket_start)` — upsert-safe.
-
-### `ai_insights`
-Persisted AI-generated analysis responses.
+`ai_insights` stores AI-generated analysis.
 
 | Column | Type | Notes |
-|---|---|---|
+| --- | --- | --- |
 | `id` | uuid | Primary key |
-| `insight_type` | text | e.g. `trend`, `anomaly` |
-| `title` | text | First 80 chars of the user query |
+| `insight_type` | text | For example `trend`, `anomaly` |
+| `title` | text | First 80 characters of the user query |
 | `content` | text | Full Claude response |
-| `time_range` | text | e.g. `24h` |
+| `time_range` | text | For example `24h` |
 | `metadata` | jsonb | Snapshot stats at generation time |
 | `created_at` | timestamptz | |
 
----
+### API reference
 
-## API reference
-
-Base URL (local): `http://localhost:8000`
-Interactive docs: `http://localhost:8000/docs`
-
-### Health
+Base URL (local): `http://localhost:8000`. Interactive docs: `http://localhost:8000/docs`.
 
 | Method | Path | Description |
-|---|---|---|
-| GET | `/` | Returns `{"status": "ok"}` |
-
-### Events — `/events`
-
-| Method | Path | Description |
-|---|---|---|
-| GET | `/events` | List events. Query params: `limit`, `offset`, `event_name`, `user_id`, `page`, `order` |
+| --- | --- | --- |
+| GET | `/` | Health check, returns `{"status": "ok"}` |
+| GET | `/events` | List events. Params: `limit`, `offset`, `event_name`, `user_id`, `page`, `order` |
 | POST | `/events` | Track a new event |
-| GET | `/events/{id}` | Fetch a single event |
-| DELETE | `/events/{id}` | Delete a single event |
+| GET | `/events/{id}` | Fetch one event |
+| DELETE | `/events/{id}` | Delete one event |
+| GET | `/metrics/summary` | Totals, unique users and sessions, breakdown by name, top 10 pages |
+| GET | `/metrics/hourly` | Hourly buckets. Params: `event_name`, `limit` (default 168, 7 days) |
+| POST | `/metrics/hourly/compute` | Bucket raw events by hour and upsert into `event_hourly_stats` |
+| GET | `/insights` | List saved insights. Params: `limit`, `offset`, `insight_type` |
+| POST | `/insights/generate` | Generate an insight with Claude. Returns an SSE stream |
+| DELETE | `/insights/{id}` | Delete a saved insight |
+| POST | `/simulate/events` | Generate and insert fake events |
+| DELETE | `/simulate/reset` | Delete all rows from `events` |
 
-**POST `/events` body**
+`POST /events` body:
+
 ```json
 {
   "event_name": "page_view",
@@ -140,23 +212,8 @@ Interactive docs: `http://localhost:8000/docs`
 }
 ```
 
-### Metrics — `/metrics`
+`POST /insights/generate` body:
 
-| Method | Path | Description |
-|---|---|---|
-| GET | `/metrics/summary` | Totals: event count, unique users/sessions, breakdown by name, top 10 pages |
-| GET | `/metrics/hourly` | Hourly buckets from `event_hourly_stats`. Params: `event_name`, `limit` (default 168 = 7 days) |
-| POST | `/metrics/hourly/compute` | Read raw events → bucket by hour → upsert into `event_hourly_stats` |
-
-### AI Insights — `/insights`
-
-| Method | Path | Description |
-|---|---|---|
-| GET | `/insights` | List saved insights. Params: `limit`, `offset`, `insight_type` |
-| POST | `/insights/generate` | Generate a new insight via Claude. Returns an SSE stream |
-| DELETE | `/insights/{id}` | Delete a saved insight |
-
-**POST `/insights/generate` body**
 ```json
 {
   "query": "What are the biggest drop-off points in the user journey?",
@@ -166,24 +223,17 @@ Interactive docs: `http://localhost:8000/docs`
 }
 ```
 
-**SSE response format**
-```
+SSE response format. With `save: true`, the full response is written to `ai_insights` after the stream completes.
+
+```text
 data: {"chunk": "Based on the data..."}
 data: {"chunk": " I can see that..."}
 data: {"tokenUsage": {"input_tokens": 412, "output_tokens": 310}}
 data: {"done": true}
 ```
 
-When `save: true`, the full response is persisted to `ai_insights` after the stream completes.
+`POST /simulate/events` body. It spreads events over the past `days_back` days across a proportional pool of users and sessions, inserting in batches of 100.
 
-### Simulate — `/simulate`
-
-| Method | Path | Description |
-|---|---|---|
-| POST | `/simulate/events` | Generate and insert fake events |
-| DELETE | `/simulate/reset` | Delete all rows from the `events` table |
-
-**POST `/simulate/events` body**
 ```json
 {
   "count": 100,
@@ -192,157 +242,67 @@ When `save: true`, the full response is persisted to `ai_insights` after the str
 }
 ```
 
-Generates realistic events spread over the past `days_back` days, clustered across a proportional pool of users and sessions. Inserts in batches of 100.
+### Implementation notes
 
----
+- **SSE streaming**: `InsForgeClient.ai_stream()` yields raw SSE lines from the InsForge AI gateway. The insights router accumulates text and saves it only after the stream ends, so saving never blocks delivery.
+- **Metrics aggregation**: `GET /metrics/summary` reads up to 1,000 events and aggregates in Python with `Counter` and `set`. This is simple and fine up to about 10k events.
+- **Hourly stats**: The compute endpoint is a manual trigger. For production, schedule it with a cron job or Zeabur scheduled tasks.
+- **Batch inserts**: Simulated events are inserted in batches of 100 to stay within InsForge payload limits.
+- **Upsert safety**: `event_hourly_stats` uses `Prefer: resolution=merge-duplicates`, so the compute endpoint is idempotent.
 
-## Local development
+### Deployment
 
-### Prerequisites
+**Zeabur.** The project is two independent services, each with its own `Dockerfile`.
 
-- Python 3.11+
-- Node.js 20+
-- An InsForge project with the three tables above created
+1. Backend: create a Zeabur service from the repo root. Zeabur detects the `Dockerfile`. Set `INSFORGE_BASE_URL` and `INSFORGE_ANON_KEY`, then note the public domain it assigns.
+2. Frontend: create a second service pointing at `frontend/`. Zeabur detects `frontend/Dockerfile`. Set the build-time variable `NEXT_PUBLIC_API_URL` to the backend's public URL, then deploy.
 
-### 1. Clone and configure the backend
+Because `NEXT_PUBLIC_API_URL` is baked in at build time, redeploy the frontend if the backend URL changes.
 
-```bash
-git clone <repo-url>
-cd insforge-sample
-```
-
-Create a `.env` file at the project root:
-
-```env
-INSFORGE_BASE_URL=https://<your-project>.us-east.insforge.app
-INSFORGE_ANON_KEY=<your-anon-key>
-```
-
-### 2. Run the backend
+**Docker (manual).**
 
 ```bash
-pip install -r requirements.txt
-uvicorn main:app --reload
-```
-
-The API will be available at `http://localhost:8000`.
-Interactive docs at `http://localhost:8000/docs`.
-
-### 3. Configure and run the frontend
-
-```bash
-cd frontend
-```
-
-Create `frontend/.env.local`:
-
-```env
-NEXT_PUBLIC_API_URL=http://localhost:8000
-```
-
-```bash
-npm install
-npm run dev
-```
-
-The dashboard will be at `http://localhost:3000`.
-
-### 4. Seed some data
-
-Open the dashboard and click **Simulate Events** to generate 100 fake events, then click **Compute Hourly Stats** to populate the charts. Alternatively, use the API directly:
-
-```bash
-# Insert 200 events spread over 14 days
-curl -X POST http://localhost:8000/simulate/events \
-  -H "Content-Type: application/json" \
-  -d '{"count": 200, "days_back": 14}'
-
-# Compute hourly buckets
-curl -X POST http://localhost:8000/metrics/hourly/compute
-```
-
----
-
-## Environment variables
-
-### Backend
-
-| Variable | Required | Description |
-|---|---|---|
-| `INSFORGE_BASE_URL` | Yes | Base URL of your InsForge project |
-| `INSFORGE_ANON_KEY` | Yes | Anonymous JWT from your InsForge project settings |
-
-### Frontend
-
-| Variable | Required | Description |
-|---|---|---|
-| `NEXT_PUBLIC_API_URL` | Yes | Public URL of the FastAPI backend. Baked in at build time |
-
-> `NEXT_PUBLIC_*` variables are embedded into the JavaScript bundle during `npm run build`. The value must be set **before** the build runs, not just at runtime.
-
----
-
-## Deployment (Zeabur)
-
-The project is structured as two independent services for Zeabur — each has its own `Dockerfile`.
-
-### Backend service
-
-1. Create a new **Zeabur service** pointing to the repo root (`insforge-sample/`).
-2. Zeabur will detect the `Dockerfile` automatically.
-3. Set these environment variables in Zeabur's service settings:
-   - `INSFORGE_BASE_URL`
-   - `INSFORGE_ANON_KEY`
-4. Note the public domain Zeabur assigns (e.g. `https://api.your-app.zeabur.app`).
-
-### Frontend service
-
-1. Create a second **Zeabur service** pointing to the `frontend/` subdirectory.
-2. Zeabur will detect `frontend/Dockerfile`.
-3. Set the build-time environment variable:
-   - `NEXT_PUBLIC_API_URL` = the backend's public URL from step 4 above.
-4. Deploy.
-
-> Because `NEXT_PUBLIC_API_URL` is baked in at build time, if you ever change the backend URL you must **redeploy the frontend** with the updated value.
-
-### Docker (manual / self-hosted)
-
-**Backend**
-```bash
+# Backend
 docker build -t insforge-api .
 docker run -p 8000:8000 \
   -e INSFORGE_BASE_URL=https://<your-project>.us-east.insforge.app \
   -e INSFORGE_ANON_KEY=<your-key> \
   insforge-api
-```
 
-**Frontend**
-```bash
+# Frontend
 cd frontend
-docker build \
-  --build-arg NEXT_PUBLIC_API_URL=http://localhost:8000 \
-  -t insforge-frontend .
+docker build --build-arg NEXT_PUBLIC_API_URL=http://localhost:8000 -t insforge-frontend .
 docker run -p 3000:3000 insforge-frontend
 ```
 
----
+## Resources
 
-## Frontend dashboard
+- [InsForge docs](https://docs.insforge.dev): database, AI gateway and API reference.
+- [InsForge](https://insforge.dev): the backend platform used here.
+- [FastAPI](https://fastapi.tiangolo.com): the backend framework.
+- [Recharts](https://recharts.org/): the charting library.
 
-The single-page dashboard auto-refreshes every 5 seconds and includes:
-
-- **Metric cards** — total events, unique users, unique sessions, and most frequent event type
-- **Event Volume chart** — hourly event counts over the past 72 hours (area chart)
-- **Event Breakdown chart** — distribution of event types (pie chart)
-- **Live Event Feed** — the 20 most recent events with timestamps and properties
-- **AI Insights panel** — freeform query box that streams a Claude-generated analysis of your current event data
+<br />
 
 ---
 
-## Key implementation notes
+<div align="center">
 
-- **SSE streaming** — `InsForgeClient.ai_stream()` yields raw SSE lines from the InsForge AI gateway. The insights router accumulates text chunks in memory and saves the full response to `ai_insights` only after the stream ends, ensuring the save never blocks delivery to the client.
-- **Metrics aggregation** — `GET /metrics/summary` fetches up to 1,000 events and aggregates them with Python `Counter` / `set`. This is intentionally simple and works well for datasets up to ~10k events.
-- **Hourly stats** — `POST /metrics/hourly/compute` is a manual trigger (also callable from the dashboard). For production use, schedule it with a cron job or Zeabur's scheduled tasks.
-- **Batch inserts** — `POST /simulate/events` inserts in batches of 100 records to stay within InsForge's payload limits.
-- **Upsert safety** — `event_hourly_stats` uses `Prefer: resolution=merge-duplicates` so re-running the compute endpoint is idempotent.
+<a href="https://studio1hq.com">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Studio1HQ/website/main/brand/studio1-logo-on-dark.svg" />
+    <img src="https://raw.githubusercontent.com/Studio1HQ/website/main/brand/studio1-logo-on-light.svg" alt="Studio1" width="160" />
+  </picture>
+</a>
+
+Built by **[Studio1](https://studio1hq.com)**, the technical content and DevRel partner for devtool teams. Made with [InsForge](https://insforge.dev).<br />
+Browse more open-source examples at [github.com/Studio1HQ](https://github.com/Studio1HQ).
+
+[![Website](https://img.shields.io/badge/studio1hq.com-0b0807?style=for-the-badge&logo=googlechrome&logoColor=white)](https://studio1hq.com)
+[![Book a call](https://img.shields.io/badge/Book_a_strategy_call-f97316?style=for-the-badge&logo=googlecalendar&logoColor=white)](https://cal.com/studio1/collab)
+[![X](https://img.shields.io/badge/%40Studio1HQ-141414?style=for-the-badge&logo=x&logoColor=white)](https://x.com/Studio1HQ)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0a66c2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/studio1hq/)
+
+<sub><a href="https://studio1hq.com">studio1hq.com</a> · Technical content, docs, video and DevRel for devtools</sub>
+
+</div>
